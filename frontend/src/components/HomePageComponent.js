@@ -5,12 +5,17 @@ import {fetchAllPosts,fetchAllCategoryRelatedPost} from '../actions/index'
 
 class HomePageComponent extends Component {
 
-componentWillMount(){
+componentDidMount(){
 	this.fetchPosts();
 }
 
+componentDidUpdate (prevProps) {
+    if (prevProps.match.params !== this.props.match.params) {
+      this.fetchPosts()
+    }
+  }
+
 fetchPosts = () =>{
-	console.log("hello");
 	if(this.props.match.params.category){
 		this.props.fetchAllCategoryRelatedPost(this.props.match.params.category);
 	} else {

@@ -2,11 +2,15 @@ import React,{Component} from 'react'
 import '../App.css'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
+import {fetchAllCategories} from '../actions/index'
 
 class NavigationBar extends Component {
   
-
+  componentWillMount(){
+  this.props.fetchAllCategories();
+}
 
   render(){
 		return (
@@ -50,4 +54,6 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(NavigationBar)
+const mapDispatchToProps = {fetchAllCategories}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(NavigationBar))
