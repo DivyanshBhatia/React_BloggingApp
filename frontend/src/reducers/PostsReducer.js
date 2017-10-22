@@ -1,4 +1,4 @@
-import {FETCH_ALL_POSTS} from '../actions/types'
+import {FETCH_ALL_POSTS,FETCH_ALL_CATEGORY_POSTS} from '../actions/types'
 
 const DEFAULT_STATE={};
 
@@ -7,7 +7,9 @@ const PostsReducer = (state=DEFAULT_STATE, action)=>{
 		
 	switch(type){
 		case FETCH_ALL_POSTS:
-			console.log("hello",action.type,1)
+		return payload
+
+		case FETCH_ALL_CATEGORY_POSTS:
 		return payload
 
 		default:
