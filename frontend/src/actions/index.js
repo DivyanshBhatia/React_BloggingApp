@@ -6,7 +6,6 @@ import api from '../libs/apiCall'
 
 
 function fetchPosts (data) {
-  console.log("gyugi"); 
   return {
   	type: FETCH_ALL_POSTS, 
   	payload: data

@@ -33,8 +33,10 @@ class SubmitArticleComponent extends Component {
       voteScore: 0,
       deleted: false
     }
-    	this.props.addNewPost(data) 
-    	window.location.href = "/";	
+    	this.props.addNewPost(data)
+    	window.location.href = "/";
+  	
+	
   }
 
 	render(){

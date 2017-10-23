@@ -51,6 +51,30 @@
   padding-bottom: 15px;
 }
 
+.leftColumn,.rightColumn{
+  float:left;
+}
+
+.leftColumn{
+  width: 80%;
+}
+
+
+.rightColumn{
+  width: 20%;
+}
+
+.centerAlign{
+  display: block; 
+  margin: 0 auto;
+}
+
+.buttonColor{
+  background-color: #f0f0f0;
+  text-color :#111;
+}
+
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

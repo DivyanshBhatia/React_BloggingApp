@@ -5,15 +5,12 @@ import {fetchAllPosts,fetchAllCategoryRelatedPost} from '../actions/index'
 
 class HomePageComponent extends Component {
 
-componentDidMount(){
-	console.log("hello");
+componentDidMount(){ 
 	this.fetchPosts();
 }
 
-componentDidUpdate (prevProps) {
-	
+componentDidUpdate (prevProps) {	
     if (prevProps.match.params.category !== this.props.match.params.category) {
-    	console.log("hello1");
       this.fetchPosts()
     }
   }
@@ -33,11 +30,17 @@ fetchPosts = () =>{
 				 Object.values(this.props.posts).map(
 				 	post => 
 				 	<div className='post' key={post.id}>
+				 	<div className='leftColumn'>
 				 		<h2>{post.title}</h2>
 				 		<b>author:</b> {post.author}<br/>
 				 		<span><b>content:</b> {post.body}</span><br/>
 				 		<b>votes:</b> {post.voteScore} <span><b>category:</b> {post.category}</span>
-				 		<hr/>
+				 	<hr/>	
+				 	</div>
+				 	<div className='rightColumn'>
+				 		<input className='buttonColor centerAlign' type="button" value="Delete Post" />
+				 	</div>
+				 	
 				 	</div>
 				 	)
 			}
