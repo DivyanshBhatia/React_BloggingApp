@@ -30,12 +30,11 @@ class SubmitArticleComponent extends Component {
       body: this.state.content,
       author: this.state.author,
       category: this.state.category,
-      vote: 0,
+      voteScore: 0,
       deleted: false
     }
-    	this.props.addNewPost(data)
-    	this.props.history.push('/')
-	
+    	this.props.addNewPost(data) 
+    	window.location.href = "/";	
   }
 
 	render(){
