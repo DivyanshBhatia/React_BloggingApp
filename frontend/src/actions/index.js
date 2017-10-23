@@ -1,6 +1,7 @@
 import {FETCH_ALL_POSTS,
   FETCH_ALL_CATEGORIES,
-  FETCH_ALL_CATEGORY_POSTS} from './types'
+  FETCH_ALL_CATEGORY_POSTS,
+  CREATE_NEW_POST} from './types'
 import api from '../libs/apiCall'
 
 
@@ -19,9 +20,16 @@ function fetchCategories (data) {
 }
 
 function fetchCategoryRelatedPosts (data) {
-  console.log(data);
   return {
     type: FETCH_ALL_CATEGORY_POSTS, 
+    payload: data
+  }
+}
+
+function addPost(data){
+  console.log(data);
+  return {
+    type: CREATE_NEW_POST, 
     payload: data
   }
 }
@@ -52,4 +60,13 @@ export function fetchAllCategoryRelatedPost (category) {
       .get(`/${category}/posts`)
       .then(response => response.data)
       .then(data => dispatch(fetchCategoryRelatedPosts(data)), error => console.error(error))
+}
+
+//This function is used to fetch all the categories
+export function addNewPost (post){
+
+  return (dispatch) => 
+    api.post(`/posts`,post)
+      .then(response => dispatch(addPost(response.data))
+        , error => console.error(error))
 }
