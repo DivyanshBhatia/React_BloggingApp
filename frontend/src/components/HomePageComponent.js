@@ -17,6 +17,7 @@ componentDidUpdate (prevProps) {
 
 deletePost = postId => { 
 	this.props.deletePost(postId)
+	window.location.href = "/"; 
 }
 
 fetchPosts = () =>{
@@ -47,6 +48,13 @@ fetchPosts = () =>{
 				 	
 				 	</div>
 				 	)
+			}
+
+			{
+				!this.props.match.params.category && (!this.props.posts || Object.values(this.props.posts).length===0) && <div className='noPostMessage'>It seems you don't have any posts to display. Do hop on to the navigation bar to your left to add some posts.</div> 
+			}
+			{
+				this.props.match.params.category && (!this.props.posts || Object.values(this.props.posts).length===0) && <div className='noPostMessage'>It seems you don't have any posts to display in <b>{this.props.match.params.category}</b> section. Do hop on to the navigation bar to your left to add some posts.</div> 
 			}
 			</div>
 			)
