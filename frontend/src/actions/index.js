@@ -1,7 +1,8 @@
 import {FETCH_ALL_POSTS,
   FETCH_ALL_CATEGORIES,
   FETCH_ALL_CATEGORY_POSTS,
-  CREATE_NEW_POST} from './types'
+  CREATE_NEW_POST,
+  DELETE_POST} from './types'
 import api from '../libs/apiCall'
 
 
@@ -27,13 +28,11 @@ function fetchCategoryRelatedPosts (data) {
 }
 
 function addPost(data){
-  console.log(data);
   return {
     type: CREATE_NEW_POST, 
     payload: data
   }
 }
-
 
 //This function is used to fetch all the posts
 export function fetchAllPosts () {
@@ -69,4 +68,13 @@ export function addNewPost (post){
     api.post(`/posts`,post)
       .then(response => dispatch(addPost(response.data))
         , error => console.error(error))
+}
+
+//This function is used to delete post, and then fetch all posts
+export function deletePost ({postId}){
+
+  return (dispatch) => 
+    api.delete(`/posts/${postId}`)
+      .then(response => response.data)
+      .then(data => dispatch(fetchAllPosts()), error => console.error(error)) 
 }
