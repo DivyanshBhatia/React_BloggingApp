@@ -23,7 +23,7 @@ class App extends Component {
               <Route exact component={HomePageComponent} path="/" />
               <Route exact component={HomePageComponent} path="/category/:category"/>
               <Route exact component={SubmitArticleComponent} path="/submit" />
-            
+              <Route exact component={SubmitArticleComponent} path="/posts/:postId/edit" />            
             </div>  
           </div>
       </div>

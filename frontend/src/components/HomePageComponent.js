@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import '../App.css'
 import {connect} from 'react-redux'
-import {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost} from '../actions/index'
+import {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost} from '../actions/index'
 
 class HomePageComponent extends Component {
 
@@ -19,6 +19,13 @@ deletePost = postId => {
 	this.props.deletePost(postId)
 	window.location.href = "/"; 
 }
+
+activePost = post => {
+	
+	this.props.history.push(`/posts/${post.postId}/edit`)
+}
+
+
 
 fetchPosts = () =>{
 	if(this.props.match.params.category){
@@ -44,6 +51,7 @@ fetchPosts = () =>{
 				 	</div>
 				 	<div className='rightColumn'>
 				 		<input className='buttonColor centerAlign' type="button" value="Delete Post" onClick={()=>this.deletePost({postId:post.id})} />
+				 		<input className='buttonColor centerAlign' type="button" value="Edit Post" onClick={()=>this.activePost({postId:post.id})} />
 				 	</div>
 				 	
 				 	</div>
@@ -67,6 +75,6 @@ function mapStateToProps(state){
 	}
 }
 
-const mapDispatchToProps = {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost}
+const mapDispatchToProps = {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost}
 
 export default connect(mapStateToProps,mapDispatchToProps)(HomePageComponent)

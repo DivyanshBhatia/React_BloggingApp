@@ -1,7 +1,8 @@
 import {FETCH_ALL_POSTS,
   FETCH_ALL_CATEGORIES,
   FETCH_ALL_CATEGORY_POSTS,
-  CREATE_NEW_POST} from './types'
+  CREATE_NEW_POST,
+  ACTIVE_POST} from './types'
 import api from '../libs/apiCall'
 
 
@@ -31,6 +32,24 @@ function addPost(data){
     type: CREATE_NEW_POST, 
     payload: data
   }
+}
+
+
+//This function is used to fetch active post
+export function publishActivePost(data){
+  return {
+    type: ACTIVE_POST, 
+    payload: data
+  }
+}
+
+//This function is used to fetch active post
+export function fetchActivePost(postId){
+  return (dispatch) => 
+    api
+      .get(`/posts/${postId}`)
+      .then(response => response.data)
+      .then(data => dispatch(publishActivePost(data)), error => console.error(error))
 }
 
 //This function is used to fetch all the posts
@@ -74,6 +93,15 @@ export function deletePost ({postId}){
 
   return (dispatch) => 
     api.delete(`/posts/${postId}`)
+      .then(response => response.data)
+      .then(data => dispatch(fetchAllPosts()), error => console.error(error)) 
+}
+
+//This function is used to edit post, and then fetch all posts
+export function editPost (post){
+
+  return (dispatch) => 
+    api.delete(`/posts/${post.id}`,post)
       .then(response => response.data)
       .then(data => dispatch(fetchAllPosts()), error => console.error(error)) 
 }
