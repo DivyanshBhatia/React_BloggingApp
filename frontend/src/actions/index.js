@@ -1,8 +1,7 @@
 import {FETCH_ALL_POSTS,
   FETCH_ALL_CATEGORIES,
   FETCH_ALL_CATEGORY_POSTS,
-  CREATE_NEW_POST,
-  DELETE_POST} from './types'
+  CREATE_NEW_POST} from './types'
 import api from '../libs/apiCall'
 
 

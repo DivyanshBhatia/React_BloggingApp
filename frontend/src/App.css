@@ -11,7 +11,7 @@
   background-color: #222;
   height: 150px;
   padding: 20px;
-  color: white;
+  color:white;
 }
 
 .App-title {
@@ -36,6 +36,8 @@
 .textarea {
  background-color: white;
  font-size: 1em;
+ height: 50%;
+  width:50%;
  font-weight: bold;
  font-family: Arial, Helvetica, sans-serif;
  border: 1px solid black;
@@ -73,6 +75,20 @@
   background-color: #f0f0f0;
   text-color :#111;
 }
+
+.categoriesDecorator {
+    background-color: white;
+    color: #111;
+    padding: 16px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: none;
+    width: 20%;
+    height: 30px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
 
 
 @keyframes App-logo-spin {

@@ -17,7 +17,6 @@ componentDidUpdate (prevProps) {
 
 deletePost = postId => { 
 	this.props.deletePost(postId)
-	console.log(postId)
 }
 
 fetchPosts = () =>{

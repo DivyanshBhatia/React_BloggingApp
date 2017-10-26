@@ -11,7 +11,7 @@ class SubmitArticleComponent extends Component {
 		id:uuidv1(),
 		author:'',
 		title :'',
-		category:'react',
+		category:'',
 		content:''		
 	}
 
@@ -34,8 +34,7 @@ class SubmitArticleComponent extends Component {
       deleted: false
     }
     	this.props.addNewPost(data)
-    	window.location.href = "/";
-  	
+    	window.location.href = "/";  	
 	
   }
 
@@ -54,6 +53,16 @@ class SubmitArticleComponent extends Component {
 				<br/>	
 				<TextareaAutosize name="content" rows={10} cols={50} onChange={this.handleChange} placeholder="Enter Content..." className="textarea" />
 				<br/>
+				
+				{
+					this.props.categories && Object.values(this.props.categories).length>0 &&
+					<select name="category" onChange={this.handleChange} id = "categoriesId" className="categoriesDecorator">
+						{this.props.categories &&
+                        	  Object.values(this.props.categories)
+                          	.map(category => <option value = {category.name} key={category.path}>{category.name}</option>)}
+                    </select>
+                }
+				<br/>
 				<button type="submit" name="submitButton" id="submitButton"> Submit Article</button>
 			</form>
 			</div>
@@ -61,9 +70,9 @@ class SubmitArticleComponent extends Component {
 	}
 }
 
-function mapStateToProps(){
+function mapStateToProps(state){
 	return{
-
+		categories:state.categories
 	}
 }
 const mapDispatchToProps = {addNewPost}
