@@ -19,8 +19,18 @@ class SubmitArticleComponent extends Component {
 
 	componentWillMount() {
     if (this.props.match.params.postId) {
-      this.props.fetchActivePost(this.props.match.params.postId)
+      this.props.fetchActivePost(this.props.match.params.postId).then(post => this.populatePost())
     } 
+  }
+
+  populatePost(){
+  	this.setState({
+  		id:this.props.activePost.id,
+  		author:this.props.activePost.author,
+  		title:this.props.activePost.title,
+  		category:this.props.activePost.category,
+  		content:this.props.activePost.body
+  		})
   }
 
 	state = {
@@ -80,16 +90,16 @@ class SubmitArticleComponent extends Component {
 				</label>
 			</div>
 			<form onSubmit={this.props.match.params.postId ? this.handleEdit : this.handleSubmit}>
-				<input type="text" name="author" onChange={this.handleChange} placeholder="Enter name of Author" value={(this.props.match.params.postId && this.props.activePost.author)?this.props.activePost.author:this.state.author} className="textarea textfieldDimensions"/>
+				<input type="text" name="author" onChange={this.handleChange} placeholder="Enter name of Author" value={this.state.author} className="textarea textfieldDimensions"/>
 				<br/>
-				<input type="text" name="title" onChange={this.handleChange} placeholder="Article Title" value={(this.props.match.params.postId && this.props.activePost.title)?this.props.activePost.title:this.state.title} className="textarea textfieldDimensions"/>				
+				<input type="text" name="title" onChange={this.handleChange} placeholder="Article Title" value={this.state.title} className="textarea textfieldDimensions"/>				
 				<br/>	
-				<TextareaAutosize name="content" rows={10} cols={50} onChange={this.handleChange} placeholder="Enter Content..." value={(this.props.match.params.postId && this.props.activePost.body)?this.props.activePost.body:this.state.content} className="textarea" />
+				<TextareaAutosize name="content" rows={10} cols={50} onChange={this.handleChange} placeholder="Enter Content..." value={this.state.content} className="textarea" />
 				<br/>
 				
 				{
 					this.props.categories && Object.values(this.props.categories).length>0 &&
-					<select name="category" onChange={this.handleChange} value={(this.props.match.params.postId && this.props.activePost.category)?this.props.activePost.category:this.state.category} id = "categoriesId" className="categoriesDecorator">
+					<select name="category" onChange={this.handleChange} value={this.state.category} id = "categoriesId" className="categoriesDecorator">
 						{this.props.categories &&
                         	  Object.values(this.props.categories)
                           	.map(category => <option value = {category.name} key={category.path}>{category.name}</option>)}

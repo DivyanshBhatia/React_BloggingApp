@@ -101,7 +101,7 @@ export function deletePost ({postId}){
 export function editPost (post){
 
   return (dispatch) => 
-    api.delete(`/posts/${post.id}`,post)
+    api.put(`/posts/${post.id}`,post)
       .then(response => response.data)
       .then(data => dispatch(fetchAllPosts()), error => console.error(error)) 
 }
