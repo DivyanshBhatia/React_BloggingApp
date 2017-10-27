@@ -13,8 +13,10 @@ class SubmitArticleComponent extends Component {
         this.state = {id:uuidv1(),
 		author:'',
 		title :'',
-		category:'',
-		content:''}
+		category:'selectCategory',
+		content:'',
+		vote:0
+		}
     }
 
 	componentWillMount() {
@@ -29,7 +31,8 @@ class SubmitArticleComponent extends Component {
   		author:this.props.activePost.author,
   		title:this.props.activePost.title,
   		category:this.props.activePost.category,
-  		content:this.props.activePost.body
+  		content:this.props.activePost.body,
+  		vote:this.props.activePost.voteScore
   		})
   }
 
@@ -37,8 +40,9 @@ class SubmitArticleComponent extends Component {
 		id:uuidv1(),
 		author:'',
 		title :'',
-		category:'',
-		content:''		
+		category:'selectCategory',
+		content:'',
+		vote:0		
 	}
 
 	handleChange = event => {
@@ -56,7 +60,7 @@ class SubmitArticleComponent extends Component {
       body: this.state.content,
       author: this.state.author,
       category: this.state.category,
-      voteScore: 0,
+      voteScore: this.state.vote,
       deleted: false
     }
     	this.props.addNewPost(data)
@@ -73,11 +77,12 @@ class SubmitArticleComponent extends Component {
       body: this.state.content,
       author: this.state.author,
       category: this.state.category,
-      voteScore: 0,
+      voteScore: this.state.vote,
       deleted: false
     }
+
     	this.props.editPost(data)
-    	window.location.href = "/";  	
+    	window.location.href = "/";
 	
   }
 
@@ -100,6 +105,7 @@ class SubmitArticleComponent extends Component {
 				{
 					this.props.categories && Object.values(this.props.categories).length>0 &&
 					<select name="category" onChange={this.handleChange} value={this.state.category} id = "categoriesId" className="categoriesDecorator">
+						<option value = "selectCategory" disabled>Select Category</option>)}
 						{this.props.categories &&
                         	  Object.values(this.props.categories)
                           	.map(category => <option value = {category.name} key={category.path}>{category.name}</option>)}
