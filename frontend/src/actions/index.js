@@ -105,3 +105,12 @@ export function editPost (post){
       .then(response => response.data)
       .then(data => dispatch(fetchAllPosts()), error => console.error(error)) 
 }
+
+//This function is used to edit post, and then fetch all posts
+export function editActivePostVote (post){
+
+  return (dispatch) => 
+    api.post(`/posts/${post.id}`,{option:post.option})
+      .then(response => response.data)
+      .then(data => dispatch(fetchActivePost(data.id)), error => console.error(error)) 
+}

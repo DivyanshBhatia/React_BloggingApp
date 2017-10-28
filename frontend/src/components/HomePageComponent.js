@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import '../App.css'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
 import {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost} from '../actions/index'
 
 class HomePageComponent extends Component {
@@ -43,7 +44,7 @@ fetchPosts = () =>{
 				 	post => 
 				 	<div className='post' key={post.id}>
 				 	<div className='leftColumn'>
-				 		<h2>{post.title}</h2>
+				 		<h2><Link className="Nav__link" to={`/posts/${post.id}/display`}>{post.title}</Link></h2>
 				 		<b>author:</b> {post.author}<br/>
 				 		<span><b>content:</b> {post.body}</span><br/>
 				 		<b>votes:</b> {post.voteScore} <span><b>category:</b> {post.category}</span>

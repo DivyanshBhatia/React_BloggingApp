@@ -91,6 +91,11 @@
     cursor: pointer;
 }
 
+.voteButton {
+  padding:10px;
+  margin:5px;
+  font-size:15px;
+}
 
 
 @keyframes App-logo-spin {

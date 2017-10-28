@@ -2,8 +2,6 @@ import React,{Component} from 'react'
 import '../App.css'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-
 import {fetchAllCategories} from '../actions/index'
 
 class NavigationBar extends Component {
@@ -56,4 +54,4 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = {fetchAllCategories}
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(NavigationBar))
+export default connect(mapStateToProps,mapDispatchToProps)(NavigationBar)
