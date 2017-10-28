@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import '../App.css'
 import {connect} from 'react-redux'
+import CommentsComponent from './CommentsComponent'
 import {fetchActivePost,editActivePostVote} from '../actions/index'
 const uuidv1 = require('uuid/v1')
 
@@ -56,8 +57,13 @@ class DisplayPostComponent extends Component {
 					<h2>{this.state.title}</h2>
 					<h4>author:&nbsp;{this.state.author}</h4>
 					{this.state.content}<br/><br/>
-					<b>category:&nbsp;</b>{this.state.category}<br/>
-					<button onClick={()=>this.editPost({vote:"upVote"})} className="voteButton">+</button>{this.state.vote}<button className="voteButton" onClick={()=>this.editPost({vote:"downVote"})}>-</button>
+					<b>category:&nbsp;</b>{this.state.category}<br/><br/>
+					<b>Votes:</b><button onClick={()=>this.editPost({vote:"upVote"})} className="voteButton">+</button>{this.state.vote}<button className="voteButton" onClick={()=>this.editPost({vote:"downVote"})}>-</button>
+					<br/>
+					<hr/>
+					<h2><i>Comments</i></h2>
+					<CommentsComponent postId={this.props.match.params.postId}/>
+
 				</div>			
 			</div>
 		)}

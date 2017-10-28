@@ -9,3 +9,6 @@ export const ACTIVE_POST = 'ACTIVE_POST'
 
 //Category related Action types
 export const FETCH_ALL_CATEGORIES = 'FETCH_ALL_CATEGORIES'
+
+//Comment related Action types
+export const FETCH_POST_COMMENTS = 'FETCH_POST_COMMENTS'

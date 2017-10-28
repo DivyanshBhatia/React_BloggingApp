@@ -2,7 +2,8 @@ import {FETCH_ALL_POSTS,
   FETCH_ALL_CATEGORIES,
   FETCH_ALL_CATEGORY_POSTS,
   CREATE_NEW_POST,
-  ACTIVE_POST} from './types'
+  ACTIVE_POST,
+  FETCH_POST_COMMENTS} from './types'
 import api from '../libs/apiCall'
 
 
@@ -25,6 +26,13 @@ function fetchCategoryRelatedPosts (data) {
     type: FETCH_ALL_CATEGORY_POSTS, 
     payload: data
   }
+}
+
+function fetchAllPostComments(data){
+  return {
+    type: FETCH_POST_COMMENTS, 
+    payload: data
+  } 
 }
 
 function addPost(data){
@@ -113,4 +121,13 @@ export function editActivePostVote (post){
     api.post(`/posts/${post.id}`,{option:post.option})
       .then(response => response.data)
       .then(data => dispatch(fetchActivePost(data.id)), error => console.error(error)) 
+}
+
+//This function is used to fetch comments related to a post
+export function fetchAllPostRelatedComments({postId}){
+  return (dispatch) => 
+    api.get(`/posts/${postId}/comments`)
+    .then(response => response.data)
+    .then(data => dispatch(fetchAllPostComments(data)), error => console.error(error))
+
 }
