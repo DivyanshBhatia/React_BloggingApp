@@ -21,8 +21,7 @@ deletePost = postId => {
 	window.location.href = "/"; 
 }
 
-activePost = post => {
-	
+activePost = post => {	
 	this.props.history.push(`/posts/${post.postId}/edit`)
 }
 

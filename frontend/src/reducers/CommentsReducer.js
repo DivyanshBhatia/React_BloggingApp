@@ -7,7 +7,7 @@ const CommentsReducer = (state=DEFAULT_STATE, action)=>{
 	const {type,payload}=action
 	switch(type){
 		case FETCH_POST_COMMENTS:
-		return payload
+		return {...state,payload}
 
 		default:
 		return state

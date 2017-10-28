@@ -5,7 +5,7 @@ import HomePageComponent from './components/HomePageComponent'
 import SubmitArticleComponent from './components/SubmitArticleComponent'
 import DisplayPostComponent from './components/DisplayPostComponent'
 
-import { Route } from 'react-router';
+import { Route,withRouter } from 'react-router';
 
 
 class App extends Component {
@@ -36,4 +36,4 @@ class App extends Component {
 }
 
 
-export default App;
+export default withRouter(App);

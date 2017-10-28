@@ -3,7 +3,8 @@ import {FETCH_ALL_POSTS,
   FETCH_ALL_CATEGORY_POSTS,
   CREATE_NEW_POST,
   ACTIVE_POST,
-  FETCH_POST_COMMENTS} from './types'
+  FETCH_POST_COMMENTS,
+  } from './types'
 import api from '../libs/apiCall'
 
 
@@ -28,7 +29,7 @@ function fetchCategoryRelatedPosts (data) {
   }
 }
 
-function fetchAllPostComments(data){
+function fetchPostComments(data){
   return {
     type: FETCH_POST_COMMENTS, 
     payload: data
@@ -128,6 +129,15 @@ export function fetchAllPostRelatedComments({postId}){
   return (dispatch) => 
     api.get(`/posts/${postId}/comments`)
     .then(response => response.data)
-    .then(data => dispatch(fetchAllPostComments(data)), error => console.error(error))
+    .then(data => dispatch(fetchPostComments(data)), error => console.error(error))
 
 }
+
+//This function is used to add new comment
+export function addNewPostComment(comment){
+  api.post(`/comments`,comment)
+    .then(response => console.log('tick',response.data));
+  return (dispatch) => 
+    api.post(`/comments`,comment)
+    .then(response => response.data)
+  }
