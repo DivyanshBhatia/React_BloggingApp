@@ -4,6 +4,7 @@ import {FETCH_ALL_POSTS,
   CREATE_NEW_POST,
   ACTIVE_POST,
   FETCH_POST_COMMENTS,
+  DELETE_POST_COMMENT
   } from './types'
 import api from '../libs/apiCall'
 
@@ -43,7 +44,12 @@ function addPost(data){
   }
 }
 
-
+function deletePostComment(data){
+  return {
+    type:DELETE_POST_COMMENT,
+    payload:data
+  }
+}
 //This function is used to fetch active post
 export function publishActivePost(data){
   return {
@@ -135,9 +141,16 @@ export function fetchAllPostRelatedComments({postId}){
 
 //This function is used to add new comment
 export function addNewPostComment(comment){
-  api.post(`/comments`,comment)
-    .then(response => console.log('tick',response.data));
   return (dispatch) => 
     api.post(`/comments`,comment)
     .then(response => response.data)
   }
+
+//This function is used to delete comment
+export function deletePostRelatedComment({commentId}){
+  return (dispatch) =>
+  api.delete(`/comments/${commentId}`)
+      .then(response => response.data)
+      .then(data => dispatch(deletePostComment(data)), error => console.error(error)) 
+
+}
