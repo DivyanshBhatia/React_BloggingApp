@@ -9,6 +9,10 @@ deleteComment = comment => {
 	this.props.deletePostRelatedComment(comment)
 	window.location.href=`/posts/${comment.parentId}/display`; 
 }
+
+editComment = comment => {
+	window.location.href=`/posts/${comment.parentId}/edit/comment/${comment.commentId}`
+}
 	render(){
 		const comment = this.props.comment
 		
@@ -17,12 +21,16 @@ deleteComment = comment => {
 				<div className='leftColumn'>
 					{comment.body}<br/>
 				 	<b>author:&nbsp;</b>{comment.author}
-				 	<hr className="hrThick"/>
+				 	
 				 </div>
 				 <div className='rightColumn'>
 				 		<input className='buttonColor centerAlign' type="button" value="Delete Comment" 
 				 		onClick={()=>this.deleteComment({commentId:comment.id,parentId:comment.parentId})} />
+				 		<input className='buttonColor centerAlign' type="button" value="Edit comment" 
+				 		onClick={()=>this.editComment({commentId:comment.id,parentId:comment.parentId})} />
+				 <hr className="hrThick"/>
 				 </div>
+
 			</div>
 	)}
 }
