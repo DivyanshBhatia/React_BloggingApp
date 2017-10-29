@@ -5,7 +5,8 @@ import {FETCH_ALL_POSTS,
   ACTIVE_POST,
   FETCH_POST_COMMENTS,
   DELETE_POST_COMMENT,
-  ACTIVE_COMMENT_VOTE
+  ACTIVE_COMMENT_VOTE,
+  SORT_POSTS
   } from './types'
 import api from '../libs/apiCall'
 
@@ -56,6 +57,16 @@ function fetchActiveCommentVote(data){
   return {
     type:ACTIVE_COMMENT_VOTE,
     payload:data
+  }
+}
+
+//This function is used to sort posts
+export function sortPosts(data){
+  return {
+    type:SORT_POSTS,
+    payload:{
+      sort:data
+    }
   }
 }
 

@@ -61,7 +61,7 @@ class CommentsComponent extends Component {
       voteScore: this.state.vote
     }
     	this.props.addNewPostComment(data) 
-   		window.location.href=`/posts/${this.props.postId}/display`
+   		window.location.href=`/category/${this.props.match.params.category}/posts/${this.props.postId}/display`
    	}
 	}
 
@@ -80,7 +80,7 @@ class CommentsComponent extends Component {
 			}
 				 	{this.props.comments && Object.values(this.props.comments).length >0 &&
 				 		Object.values(this.props.comments.payload).map(comment => 
-                		<CommentComponent key={comment.id} comment={comment} isEditRequired={comment.id===this.props.match.params.commentId}/>           		
+                		<CommentComponent key={comment.id} category={this.props.match.params.category} comment={comment} isEditRequired={comment.id===this.props.match.params.commentId}/>           		
         			)}
 				<form onSubmit={this.handleSubmit}>
 					<TextareaAutosize name="body" rows={5} cols={20} onChange={this.handleChange} placeholder="Enter your comment here..." value={this.state.content} className="textarea" />

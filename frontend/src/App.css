@@ -33,6 +33,9 @@
   padding: 0; 
 }
 
+.Nav__item{
+  padding-top: 10px; 
+}
 .hrThick {
     border: none;
     height: 1px;

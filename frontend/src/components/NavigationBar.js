@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import '../App.css'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
+import SortComponent from './SortComponent'
 import {fetchAllCategories} from '../actions/index'
 
 class NavigationBar extends Component {
@@ -38,6 +39,10 @@ class NavigationBar extends Component {
                         }
                       </ul>
                       </li>
+                    <li className="Nav__item"> 
+                    Sort Posts By
+                      <SortComponent/>
+                    </li>
               			</ul>
               		</div>
 				</div>

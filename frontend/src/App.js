@@ -24,8 +24,8 @@ class App extends Component {
              
               <Route exact component={HomePageComponent} path="/" />
               <Route exact component={HomePageComponent} path="/category/:category"/>
-              <Route exact component={DisplayPostComponent} path="/posts/:postId/display"/>
-              <Route exact component={DisplayPostComponent} path="/posts/:postId/edit/comment/:commentId"/>    
+              <Route exact component={DisplayPostComponent} path="/category/:category/posts/:postId/display"/>
+              <Route exact component={DisplayPostComponent} path="/category/:category/posts/:postId/edit/comment/:commentId"/>    
               <Route exact component={SubmitArticleComponent} path="/submit" />
               <Route exact component={SubmitArticleComponent} path="/posts/:postId/edit" />            
             </div>  

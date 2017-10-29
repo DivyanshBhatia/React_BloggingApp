@@ -35,11 +35,11 @@ populatePost=comment=>{
 
 deleteComment = comment => { 
 	this.props.deletePostRelatedComment(comment)
-	window.location.href=`/posts/${comment.parentId}/display`; 
+	window.location.href=`/category/${this.props.category}/posts/${comment.parentId}/display`; 
 }
 
 editComment = comment => {
-	window.location.href=`/posts/${comment.parentId}/edit/comment/${comment.commentId}`
+	window.location.href=`/category/${this.props.category}/posts/${comment.parentId}/edit/comment/${comment.commentId}`
 }
 
 handleChange = event => {
@@ -72,7 +72,7 @@ handleEdit = event => {
       voteScore: this.state.vote
     }
     	this.props.editPostRelatedComment(data)
-   		window.location.href=`/posts/${data.parentId}/display`;
+   		window.location.href=`/category/${this.props.category}/posts/${data.parentId}/display`;
    	}
 }
 
@@ -84,7 +84,7 @@ editCommentVote = voteOption => {
       option:voteOption.vote
 	}
 	this.props.editActivePostCommentVote(data)
-	window.location.href=`/posts/${data.parentId}/display`;
+	window.location.href=`/category/${this.props.category}/posts/${data.parentId}/display`;
 }
 
 	render(){

@@ -4,6 +4,12 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import { dateTimeHelper } from '../utils/dateTimeHelper'
 import {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost} from '../actions/index'
+import {
+	BY_VOTE_HIGHEST,
+	BY_VOTE_LOWEST,
+	BY_MODIFIED_EARLIEST,
+	BY_MODIFIED_LATEST
+} from '../utils/sortConstantsHelper'
 
 class HomePageComponent extends Component {
 
@@ -19,7 +25,7 @@ componentDidUpdate (prevProps) {
 
 deletePost = postId => { 
 	this.props.deletePost(postId)
-	window.location.href = "/"; 
+	this.props.history.push("/"); 
 }
 
 activePost = post => {	
@@ -38,11 +44,24 @@ fetchPosts = () =>{
 			<div>
 			{
 				this.props.posts &&
-				 Object.values(this.props.posts).map(
+				 Object.values(this.props.posts).filter(post => (post.id!==undefined)).sort((post1,post2) => {
+				 	switch(this.props.activeSort.sort){
+				 		case BY_VOTE_HIGHEST:
+				 		return post2.voteScore - post1.voteScore
+				 		case BY_VOTE_LOWEST:
+				 		return post1.voteScore - post2.voteScore
+				 		case BY_MODIFIED_LATEST:
+				 		return post2.timestamp - post1.timestamp
+				 		case BY_MODIFIED_EARLIEST:
+				 		return post1.timestamp - post2.timestamp
+				 		default:
+				 		return 0
+				 	}
+				 }).map(
 				 	post => 
 				 	<div className='post' key={post.id}>
 				 	<div className='leftColumn'>
-				 		<h2><Link className="Nav__link" to={`/posts/${post.id}/display`}>{post.title}</Link></h2>
+				 		<h2><Link className="Nav__link" to={`/category/${post.category}/posts/${post.id}/display`}>{post.title}</Link></h2>
 				 		<b> Last Modified on:</b> {dateTimeHelper(post.timestamp)}<br/>
 				 		<b>Author:</b> {post.author}<br/>
 				 		<span><b>content:</b> {post.body}</span><br/>
@@ -71,6 +90,7 @@ fetchPosts = () =>{
 
 function mapStateToProps(state){
 	return {
+		activeSort:state.activeSort,
 		posts:state.posts
 	}
 }

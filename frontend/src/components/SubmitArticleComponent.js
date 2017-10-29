@@ -78,7 +78,7 @@ class SubmitArticleComponent extends Component {
       deleted: false
     }
     	this.props.addNewPost(data)
-    	window.location.href = "/";
+    	this.props.history.push("/");
     }
   }
 
@@ -98,7 +98,7 @@ class SubmitArticleComponent extends Component {
     }
 
     	this.props.editPost(data)
-    	window.location.href = "/";
+    	this.props.history.push("/");
   	}
 	}
 
