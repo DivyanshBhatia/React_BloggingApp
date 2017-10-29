@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import '../App.css'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { dateTimeHelper } from '../utils/dateTimeHelper';
+import { dateTimeHelper } from '../utils/dateTimeHelper'
 import {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost} from '../actions/index'
 
 class HomePageComponent extends Component {

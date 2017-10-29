@@ -15,7 +15,8 @@ class SubmitArticleComponent extends Component {
 		title :'',
 		category:'selectCategory',
 		content:'',
-		vote:0
+		vote:0,
+		formValidForSubmission:true
 		}
     }
 
@@ -51,8 +52,21 @@ class SubmitArticleComponent extends Component {
 		})
 	}
 
+	validateForm = () =>{
+		if(this.state.title.length>0 && this.state.content.length>0 
+			&& this.state.author.length>0 && this.state.category !== 'selectCategory'){	
+		return true;
+	} else {
+			this.setState({
+			formValidForSubmission:false
+			})
+		return false;
+		}
+	}
+
 	handleSubmit = event => {
     event.preventDefault()
+	if(this.validateForm()){
     const data = {
       id: this.state.id,
       timestamp: Date.now(),
@@ -64,12 +78,14 @@ class SubmitArticleComponent extends Component {
       deleted: false
     }
     	this.props.addNewPost(data)
-    	window.location.href = "/";  	
-	
+    	window.location.href = "/";
+    }
   }
 
   handleEdit = event => {
     event.preventDefault()
+
+	if(this.validateForm()){
     const data = {
       id: this.props.match.params.postId,
       timestamp: Date.now(),
@@ -83,28 +99,31 @@ class SubmitArticleComponent extends Component {
 
     	this.props.editPost(data)
     	window.location.href = "/";
-	
-  }
+  	}
+	}
 
 	render(){
 		return (
 			<div>
+			{
+				!this.state.formValidForSubmission && <div className="errMsg"><b>Title, Author, Content and Category are mandatory fields and cannot be empty. Please check what you have submitted and try again.</b></div>
+			}
 			<div className="padding15px">
 				<label>
 					Here you can Submit new Article/Edit existing Article
 				</label>
 			</div>
 			<form onSubmit={this.props.match.params.postId ? this.handleEdit : this.handleSubmit}>
-				<input type="text" name="author" onChange={this.handleChange} placeholder="Enter name of Author" value={this.state.author} className="textarea textfieldDimensions"/>
+				<input type="text" name="author" onInput={this.handleChange} onChange={this.handleChange}  placeholder="Enter name of Author" value={this.state.author} className="textarea textfieldDimensions"/>
 				<br/>
-				<input type="text" name="title" onChange={this.handleChange} placeholder="Article Title" value={this.state.title} className="textarea textfieldDimensions"/>				
+				<input type="text" name="title" onInput={this.handleChange} onChange={this.handleChange} placeholder="Article Title" value={this.state.title} className="textarea textfieldDimensions"/>				
 				<br/>	
-				<TextareaAutosize name="content" rows={10} cols={50} onChange={this.handleChange} placeholder="Enter Content..." value={this.state.content} className="textarea" />
+				<TextareaAutosize name="content" rows={10} cols={50} onInput={this.handleChange} onChange={this.handleChange} placeholder="Enter Content..." value={this.state.content} className="textarea" />
 				<br/>
 				
 				{
 					this.props.categories && Object.values(this.props.categories).length>0 &&
-					<select name="category" onChange={this.handleChange} value={this.state.category} id = "categoriesId" className="categoriesDecorator">
+					<select name="category" onInput={this.handleChange} onChange={this.handleChange} value={this.state.category} id = "categoriesId" className="categoriesDecorator">
 						<option value = "selectCategory" disabled>Select Category</option>)}
 						{this.props.categories &&
                         	  Object.values(this.props.categories)

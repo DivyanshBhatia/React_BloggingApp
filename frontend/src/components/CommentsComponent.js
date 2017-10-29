@@ -15,7 +15,8 @@ class CommentsComponent extends Component {
         id:uuidv1(),
 		author:'',
 		body:'',
-		vote:0
+		vote:0,
+		formValidForSubmission:true
 		}
     }
 
@@ -36,8 +37,21 @@ class CommentsComponent extends Component {
 		})
 	}
 
+	validateForm = () =>{
+		if(this.state.body.length>0 
+			&& this.state.author.length>0){	
+		return true;
+	} else {
+			this.setState({
+			formValidForSubmission:false
+			})
+		return false;
+		}
+	}
+
 	handleSubmit = event => {
     event.preventDefault()
+    if(this.validateForm()){
     const data = {
       id: this.state.id,
       timestamp: Date.now(),
@@ -49,10 +63,15 @@ class CommentsComponent extends Component {
     	this.props.addNewPostComment(data) 
    		window.location.href=`/posts/${this.props.postId}/display`
    	}
+	}
+
 	render(){
 
 		return(
 			<div>
+			{
+				!this.state.formValidForSubmission && <div className="errMsg"><b>Author and Body are mandatory fields and cannot be empty. Please check what you have submitted and try again.</b></div>
+			}
 				 	{this.props.comments && Object.values(this.props.comments).length >0 &&
 				 		Object.values(this.props.comments.payload).map(comment => 
                 		<CommentComponent key={comment.id} comment={comment} isEditRequired={comment.id===this.props.match.params.commentId}/>           		

@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import '../App.css'
 import {connect} from 'react-redux'
 import CommentsComponent from './CommentsComponent'
+import { dateTimeHelper } from '../utils/dateTimeHelper'
 import {fetchActivePost,editActivePostVote} from '../actions/index'
 const uuidv1 = require('uuid/v1')
 
@@ -14,7 +15,8 @@ class DisplayPostComponent extends Component {
 		title :'',
 		category:'selectCategory',
 		content:'',
-		vote:0
+		vote:0,
+		timestamp:''
 		}
     }
 
@@ -46,7 +48,8 @@ class DisplayPostComponent extends Component {
   		title:this.props.activePost.title,
   		category:this.props.activePost.category,
   		content:this.props.activePost.body,
-  		vote:this.props.activePost.voteScore
+  		vote:this.props.activePost.voteScore,
+  		timestamp:this.props.activePost.timestamp
   		})
   }
 
@@ -55,6 +58,7 @@ class DisplayPostComponent extends Component {
 			<div>
 				<div className="displayPostClass">
 					<h2>{this.state.title}</h2>
+					<b> Last Modified on:</b> {dateTimeHelper(this.state.timestamp)}<br/>
 					<h4>author:&nbsp;{this.state.author}</h4>
 					{this.state.content}<br/><br/>
 					<b>category:&nbsp;</b>{this.state.category}<br/><br/>

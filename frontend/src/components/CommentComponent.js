@@ -13,7 +13,8 @@ constructor(props) {
         id:'',
 		author:'',
 		body:'',
-		vote:0
+		vote:0,
+		formValidForSubmission:true
 		}
     }
 
@@ -47,8 +48,21 @@ handleChange = event => {
 		})
 }
 
+	validateForm = () =>{
+		if(this.state.body.length>0 
+			&& this.state.author.length>0){	
+		return true;
+	} else {
+			this.setState({
+			formValidForSubmission:false
+			})
+		return false;
+		}
+	}
+
 handleEdit = event => {
     event.preventDefault()
+    if(this.validateForm()){
     const data = {
       id: this.state.id,
       timestamp: Date.now(),
@@ -59,6 +73,7 @@ handleEdit = event => {
     }
     	this.props.editPostRelatedComment(data)
    		window.location.href=`/posts/${data.parentId}/display`;
+   	}
 }
 
 editCommentVote = voteOption => {
@@ -77,6 +92,7 @@ editCommentVote = voteOption => {
 		return(
 
 			<div>
+			
 			{
 			//Posts not requiring edit goes here
 			!isEditRequired &&
@@ -90,7 +106,7 @@ editCommentVote = voteOption => {
 				<button onClick={()=>this.editCommentVote({vote:"upVote"})} className="voteButton">+</button>
 					{this.state.vote}
 				<button className="voteButton" onClick={()=>this.editCommentVote({vote:"downVote"})}>-</button>
-					
+				<hr className="hrThick"/>
 				 </div>
 				 <div className='rightColumn'>
 				 		<input className='buttonColor centerAlign' type="button" value="Delete Comment" 
@@ -107,8 +123,12 @@ editCommentVote = voteOption => {
 			//Post that is being edited goes here
 			isEditRequired &&
 			<div>
+
 				<div className='leftColumn'>
 				<hr className="hrThick"/>
+				{
+				!this.state.formValidForSubmission && <div className="errMsg"><b>Author and Body are mandatory fields and cannot be empty. Please check what you have submitted and try again.</b></div>
+				}
 				<form onSubmit={this.handleEdit}>
 					<TextareaAutosize name="body" rows={5} cols={20} onChange={this.handleChange} 
 						placeholder="Enter your comment here..." value={this.state.body} className="textarea" />
