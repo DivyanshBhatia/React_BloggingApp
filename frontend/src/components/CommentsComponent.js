@@ -55,9 +55,8 @@ class CommentsComponent extends Component {
 			<div>
 				 	{this.props.comments && Object.values(this.props.comments).length >0 &&
 				 		Object.values(this.props.comments.payload).map(comment => 
-                		<CommentComponent key={comment.id} comment={comment}/>           		
+                		<CommentComponent key={comment.id} comment={comment} isEditRequired={comment.id===this.props.match.params.commentId}/>           		
         			)}
-
 				<form onSubmit={this.handleSubmit}>
 					<TextareaAutosize name="body" rows={5} cols={20} onChange={this.handleChange} placeholder="Enter your comment here..." value={this.state.content} className="textarea" />
 					<br/>

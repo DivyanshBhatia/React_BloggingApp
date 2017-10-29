@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import '../App.css'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
+import { dateTimeHelper } from '../utils/dateTimeHelper';
 import {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost} from '../actions/index'
 
 class HomePageComponent extends Component {
@@ -25,8 +26,6 @@ activePost = post => {
 	this.props.history.push(`/posts/${post.postId}/edit`)
 }
 
-
-
 fetchPosts = () =>{
 	if(this.props.match.params.category){
 		this.props.fetchAllCategoryRelatedPost(this.props.match.params.category);
@@ -44,7 +43,8 @@ fetchPosts = () =>{
 				 	<div className='post' key={post.id}>
 				 	<div className='leftColumn'>
 				 		<h2><Link className="Nav__link" to={`/posts/${post.id}/display`}>{post.title}</Link></h2>
-				 		<b>author:</b> {post.author}<br/>
+				 		<b> Last Modified on:</b> {dateTimeHelper(post.timestamp)}<br/>
+				 		<b>Author:</b> {post.author}<br/>
 				 		<span><b>content:</b> {post.body}</span><br/>
 				 		<b>votes:</b> {post.voteScore} <span><b>category:</b> {post.category}</span>
 				 	<hr/>	

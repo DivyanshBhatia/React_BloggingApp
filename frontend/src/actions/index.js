@@ -4,7 +4,8 @@ import {FETCH_ALL_POSTS,
   CREATE_NEW_POST,
   ACTIVE_POST,
   FETCH_POST_COMMENTS,
-  DELETE_POST_COMMENT
+  DELETE_POST_COMMENT,
+  ACTIVE_COMMENT_VOTE
   } from './types'
 import api from '../libs/apiCall'
 
@@ -50,6 +51,14 @@ function deletePostComment(data){
     payload:data
   }
 }
+
+function fetchActiveCommentVote(data){
+  return {
+    type:ACTIVE_COMMENT_VOTE,
+    payload:data
+  }
+}
+
 //This function is used to fetch active post
 export function publishActivePost(data){
   return {
@@ -153,4 +162,19 @@ export function deletePostRelatedComment({commentId}){
       .then(response => response.data)
       .then(data => dispatch(deletePostComment(data)), error => console.error(error)) 
 
+}
+
+//This function is used to delete comment
+export function editPostRelatedComment(comment){
+  return (dispatch) =>
+  api.put(`/comments/${comment.id}`,comment)
+      .then(response => response.data)
+}
+
+//This function is used to edit post, and then fetch all posts
+export function editActivePostCommentVote (comment){
+  return (dispatch) => 
+    api.post(`/comments/${comment.id}`,{option:comment.option})
+      .then(response => response.data)
+      .then(data => dispatch(fetchActiveCommentVote(data)), error => console.error(error)) 
 }
