@@ -3,7 +3,7 @@ import '../App.css'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import { dateTimeHelper } from '../utils/dateTimeHelper'
-import {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost} from '../actions/index'
+import {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost,fetchAllPostRelatedComments,editActivePostVote} from '../actions/index'
 import {
 	BY_VOTE_HIGHEST,
 	BY_VOTE_LOWEST,
@@ -30,6 +30,20 @@ deletePost = postId => {
 
 activePost = post => {	
 	this.props.history.push(`/posts/${post.postId}/edit`)
+}
+
+editPostVote = (post,voteString) => { 
+  		const data = {
+      	id: post.id,
+      	timestamp: Date.now(),
+      	title: post.title,
+      	body: post.body,
+      	author: post.author,
+      	category: post.category,
+      	option: voteString.vote,
+      	deleted: false
+    }
+		this.props.editActivePostVote(data).then(post => this.fetchPosts()) 
 }
 
 fetchPosts = () =>{
@@ -60,12 +74,14 @@ fetchPosts = () =>{
 				 }).map(
 				 	post => 
 				 	<div className='post' key={post.id}>
+
 				 	<div className='leftColumn'>
 				 		<h2><Link className="Nav__link" to={`/category/${post.category}/posts/${post.id}/display`}>{post.title}</Link></h2>
 				 		<b> Last Modified on:</b> {dateTimeHelper(post.timestamp)}<br/>
 				 		<b>Author:</b> {post.author}<br/>
 				 		<span><b>content:</b> {post.body}</span><br/>
-				 		<b>votes:</b> {post.voteScore} <span><b>category:</b> {post.category}</span>
+				 		<b>Votes:</b><button onClick={()=>this.editPostVote(post,{vote:"upVote"})} className="voteButton">+</button>{post.voteScore}<button className="voteButton" onClick={()=>this.editPostVote(post,{vote:"downVote"})}>-</button>
+						<span><b>category:</b> {post.category}</span>
 				 	<hr/>	
 				 	</div>
 				 	<div className='rightColumn'>
@@ -90,11 +106,12 @@ fetchPosts = () =>{
 
 function mapStateToProps(state){
 	return {
+		comments:state.comments,
 		activeSort:state.activeSort,
 		posts:state.posts
 	}
 }
 
-const mapDispatchToProps = {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost}
+const mapDispatchToProps = {fetchAllPosts,fetchAllCategoryRelatedPost,deletePost,fetchActivePost,editActivePostVote,fetchAllPostRelatedComments}
 
 export default connect(mapStateToProps,mapDispatchToProps)(HomePageComponent)
