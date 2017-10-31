@@ -153,10 +153,7 @@ editCommentVote = voteOption => {
 		
 	)}
 }
-function mapStateToProps(state){
-	return{
-	}
-}
+
 const mapDispatchToProps = {deletePostRelatedComment,editPostRelatedComment,editActivePostCommentVote}
 
-export default connect(mapStateToProps,mapDispatchToProps)(CommentComponent)
+export default connect(null,mapDispatchToProps)(CommentComponent)

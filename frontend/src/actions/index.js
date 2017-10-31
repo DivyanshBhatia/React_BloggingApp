@@ -83,17 +83,24 @@ export function fetchActivePost(postId){
   return (dispatch) => 
     api
       .get(`/posts/${postId}`)
-      .then(response => response.data)
+      .then(post => api.get(`/posts/${post.data.id}/comments`)
+      .then(response => (post.data.commentsCount = response.data.length))
+      .then(() => post.data))
       .then(data => dispatch(publishActivePost(data)), error => console.error(error))
 }
 
 //This function is used to fetch all the posts
+/*
+Here making an additional api call to fetch comments related to posts
+*/
 export function fetchAllPosts () {
+  
   return (dispatch) => 
     api
       .get(`/posts`)
-      .then(response => response.data)
-      .then(data => dispatch(fetchPosts(data)), error => console.error(error))
+      .then(response => Promise.all(Object.values(response.data).map(post => api.get(`/posts/${post.id}/comments`)
+      .then(response => (post.commentsCount = response.data.length))
+      .then(() => post)))).then(data => dispatch(fetchPosts(data)), error => console.error(error))
 }
 
 //This function is used to fetch all the categories
@@ -106,11 +113,16 @@ export function fetchAllCategories () {
 }
 
 //This function is used to fetch all the categories
+/*
+Here making an additional api call to fetch comments related to category posts
+*/
 export function fetchAllCategoryRelatedPost (category) {
   return (dispatch) => 
     api
       .get(`/${category}/posts`)
-      .then(response => response.data)
+      .then(response => Promise.all(Object.values(response.data).map(post => api.get(`/posts/${post.id}/comments`)
+      .then(response => (post.commentsCount = response.data.length))
+      .then(() => post))))
       .then(data => dispatch(fetchCategoryRelatedPosts(data)), error => console.error(error))
 }
 

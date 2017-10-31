@@ -13,6 +13,13 @@ import {
 
 class HomePageComponent extends Component {
 
+constructor(props) {
+        super(props);
+        this.state = {
+        numComments:0
+		}
+}
+
 componentDidMount(){ 
 	this.fetchPosts();
 }
@@ -53,6 +60,7 @@ fetchPosts = () =>{
 		this.props.fetchAllPosts();
 	}
 }
+
 	render(){
 		return (
 			<div>
@@ -82,6 +90,7 @@ fetchPosts = () =>{
 				 		<span><b>content:</b> {post.body}</span><br/>
 				 		<b>Votes:</b><button onClick={()=>this.editPostVote(post,{vote:"upVote"})} className="voteButton">+</button>{post.voteScore}<button className="voteButton" onClick={()=>this.editPostVote(post,{vote:"downVote"})}>-</button>
 						<span><b>category:</b> {post.category}</span>
+						&nbsp;&nbsp;&nbsp;<b>Number of Comments:</b>&nbsp;{post.commentsCount}
 				 	<hr/>	
 				 	</div>
 				 	<div className='rightColumn'>

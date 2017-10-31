@@ -4,6 +4,7 @@ import NavigationBar from './components/NavigationBar'
 import HomePageComponent from './components/HomePageComponent'
 import SubmitArticleComponent from './components/SubmitArticleComponent'
 import DisplayPostComponent from './components/DisplayPostComponent'
+import PageNotFoundComponent from './components/PageNotFoundComponent'
 
 import { Route,withRouter } from 'react-router';
 
@@ -27,7 +28,8 @@ class App extends Component {
               <Route exact component={DisplayPostComponent} path="/category/:category/posts/:postId/display"/>
               <Route exact component={DisplayPostComponent} path="/category/:category/posts/:postId/edit/comment/:commentId"/>    
               <Route exact component={SubmitArticleComponent} path="/submit" />
-              <Route exact component={SubmitArticleComponent} path="/posts/:postId/edit" />            
+              <Route exact component={SubmitArticleComponent} path="/posts/:postId/edit" />  
+              <Route exact component={PageNotFoundComponent} path="/pageNotFound"/>          
             </div>  
           </div>
       </div>

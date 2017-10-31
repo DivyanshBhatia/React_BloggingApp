@@ -72,13 +72,7 @@ class CommentsComponent extends Component {
 			{
 				!this.state.formValidForSubmission && <div className="errMsg"><b>Author and Body are mandatory fields and cannot be empty. Please check what you have submitted and try again.</b></div>
 			}
-			{
-				this.props.comments && Object.values(this.props.comments).length >0 &&
-				<div>
-				 Number of Comments : {Object.values(this.props.comments.payload).length}
-				 </div>
-			}
-				 	{this.props.comments && Object.values(this.props.comments).length >0 &&
+				 	{this.props.comments && Object.values(this.props.comments).length >0  && 
 				 		Object.values(this.props.comments.payload).map(comment => 
                 		<CommentComponent key={comment.id} category={this.props.match.params.category} comment={comment} isEditRequired={comment.id===this.props.match.params.commentId}/>           		
         			)}
